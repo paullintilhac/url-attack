@@ -69,7 +69,7 @@ class UATAttacker(ClassificationAttacker):
             victim : Classifier, 
             dataset : datasets.Dataset, 
             tokenizer : Tokenizer,
-            epoch : int = 5,
+            epoch : int = 1,
             batch_size : int = 5,
             trigger_len : int = 3,
             beam_size : int = 5,

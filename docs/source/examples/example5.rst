@@ -170,7 +170,7 @@ Complete Code
         return correct / len(dataset)
 
     # Train the victim model and conduct evaluation
-    def train_model(model, data_train, data_valid, vocab, num_epoch=10):
+    def train_model(model, data_train, data_valid, vocab, num_epoch=1):
         mx_acc = None
         mx_model = None
         for i in range(num_epoch):

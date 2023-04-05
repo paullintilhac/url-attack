@@ -2,6 +2,8 @@ import urllib
 import zipfile
 import os
 from tqdm import tqdm
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def make_zip_downloader(URL : str, file_list=None, resource_name = None):
