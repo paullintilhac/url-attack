@@ -35,7 +35,7 @@ class AttackEval:
             metrics: A list of metrics. Each element must be an instance of :py:class:`.AttackMetric` or :py:class:`.MetricSelector` .
 
         """
-
+        print("language: " + str(language) + ", metrics: " + str(metrics))
         if language is None:
             lst = [attacker]
             if tokenizer is not None:
@@ -125,7 +125,7 @@ class AttackEval:
             A dict contains the result of each input samples.
 
         """
-
+        print("dataset: " + str(dataset))
         if num_workers > 0:
             ctx = mp.get_context("spawn")
             if chunk_size is None:
@@ -157,7 +157,6 @@ class AttackEval:
             A dict of attack evaluation summaries.
 
         """
-        print("hello")
 
         if hasattr(dataset, "__len__"):
             total_len = len(dataset)
@@ -177,9 +176,9 @@ class AttackEval:
 
         # Begin for
         for i, res in enumerate(result_iterator):
+            print("res: " + str(res))
             total_inst += 1
             success_inst += int(res["success"])
-            print("x_orig: " + str(res["data"]["x"]))
 
             if TAG_Classification in self.victim.TAGS:
                 x_orig = res["data"]["x"]

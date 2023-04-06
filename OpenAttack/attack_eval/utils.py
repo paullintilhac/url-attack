@@ -10,7 +10,6 @@ def attack_process(attacker, victim : Victim, data, limit):
         adversarial_sample = attacker(victim, data)
         invoke_times = victim.context.invoke
         attack_time = victim.context.attack_time
-        print("made it here")
     except InvokeLimitExceeded:
         adversarial_sample = None
         invoke_times = victim.context.invoke + 1

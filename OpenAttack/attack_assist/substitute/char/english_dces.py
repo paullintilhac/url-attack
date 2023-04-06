@@ -41,7 +41,7 @@ class DCESSubstitute(CharSubstitute):
 
     def substitute(self, char: str):
         c = get_hex_string(char)
-
+        print("self.descs: "  + str(self.descs))
         if c in self.descs:
             description = self.descs[c]["description"]
         else:
@@ -50,7 +50,7 @@ class DCESSubstitute(CharSubstitute):
         tokens = description.split(' ')
         case = 'unknown'
         identifiers = []
-
+        print("tokens: " + str(tokens) + ", identifiers: " + str(identifiers))
         for token in tokens:
             if len(token) == 1:
                 identifiers.append(token)
