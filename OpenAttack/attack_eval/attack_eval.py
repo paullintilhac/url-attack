@@ -179,7 +179,6 @@ class AttackEval:
         for i, res in enumerate(result_iterator):
             total_inst += 1
             success_inst += int(res["success"])
-            print("x_orig: " + str(res["data"]["x"]))
 
             if TAG_Classification in self.victim.TAGS:
                 x_orig = res["data"]["x"]
@@ -204,7 +203,6 @@ class AttackEval:
                     else:
                         raise RuntimeError("Invalid victim model")
                 else:
-                    print("x_orig: " + str(x_orig))
                     y_adv = None
                     x_adv = None
                     if Tag("get_prob", "victim") in self.victim.TAGS:
