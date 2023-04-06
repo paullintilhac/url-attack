@@ -22,7 +22,7 @@ class ClassificationAttacker(Attacker):
         if "target" in input_:
             goal = ClassifierGoal(input_["target"], targeted=True)
         else:
-            origin_x = victim.get_pred([ input_["x"] ])[0]
+            origin_x = victim.get_pred([input_["x"]])[0]
             goal = ClassifierGoal( origin_x, targeted=False )
         
         adversarial_sample = self.attack(victim, input_["x"], goal)

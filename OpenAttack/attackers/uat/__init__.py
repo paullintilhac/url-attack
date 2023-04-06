@@ -114,19 +114,35 @@ class UATAttacker(ClassificationAttacker):
         def get_candidates(gradient, cur_id):
             idx = (embedding - embedding[cur_id]).dot( gradient.T ).argsort()[:beam_size].tolist()
             return [ id2word[id_] for id_ in idx]
-        
+
+        print("dataset type: " + str(type(dataset)))
+        print("dataset[0:2] length: " + str(len(dataset[0:2])))
+
+        print("dataset[0:2]: " + str(dataset[0:2]))
+
         curr_trigger = ["the" for _ in range(trigger_len)]
         for epoch_idx in range(epoch):
             for num_iter in tqdm( range( (len(dataset) + batch_size - 1) // batch_size ), desc="Epoch %d: " % epoch_idx ):
                 cnt = num_iter * batch_size
                 batch = dataset[ cnt: cnt + batch_size ]
+                print("batch: " + str(batch))
+                print("batch len: " + str(len(batch)))
+                # for sent in batch["x"]:
+                # print("sent: "+ str(sent))
+                x=[]
+                y=[]
+                for sent in batch:
+                    print("sent: " + str(sent))
+                    x.append(sent['x'])
+                    y.append(sent['y'])
+                # x = [
+                #     tokenizer.tokenize(sent, pos_tagging=False)
+                #         for sent in batch["x"]
+                # ]
+                # y = batch["y"]
 
-                x = [
-                    tokenizer.tokenize(sent, pos_tagging=False)
-                        for sent in batch["x"]
-                ]
-                y = batch["y"]
-
+                print("type of x[0][0]: " + str(type(x[0][0])))
+                print("x[0]: " + str(x[0][0]))
                 nw_beams = [ ( curr_trigger,  0 ) ]
                 for i in range(trigger_len):
                     # beam search here
