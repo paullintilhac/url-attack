@@ -9,7 +9,7 @@ from ..text_process.tokenizer import Tokenizer, get_default_tokenizer
 from ..victim.base import Victim
 from ..attackers.base import Attacker
 from ..metric import AttackMetric, MetricSelector
-
+import torch
 import multiprocessing as mp
 
 logger = logging.getLogger(__name__)
@@ -172,7 +172,8 @@ class AttackEval:
         total_result_cnt = {}
         total_inst = 0
         success_inst = 0
-
+        success_and_same_output = 0
+        print("TAGS: " + str(self.victim.TAGS))
         # Begin for
         for i, res in enumerate(result_iterator):
             total_inst += 1
@@ -190,7 +191,11 @@ class AttackEval:
                             self.victim.clear_context()
                         y_orig = probs[0]
                         y_adv = probs[1]
+                        y_orig_int = int(torch.max(y_orig,1)[1])
+                        y_adv_int = int(torch.max(y_adv,1)[1])
+                        success_and_same_output += int(y_orig_int==y_adv_int)
                     elif Tag("get_pred", "victim") in self.victim.TAGS:
+
                         self.victim.set_context(res["data"], None)
                         try:
                             preds = self.victim.get_pred([x_orig, x_adv])
@@ -198,6 +203,7 @@ class AttackEval:
                             self.victim.clear_context()
                         y_orig = int(preds[0])
                         y_adv = int(preds[1])
+                        
                     else:
                         raise RuntimeError("Invalid victim model")
                 else:
@@ -241,6 +247,8 @@ class AttackEval:
         summary["Total Attacked Instances"] = total_inst
         summary["Successful Instances"] = success_inst
         summary["Attack Success Rate"] = success_inst / total_inst
+        summary["Attack Break Rate"] = success_and_same_output / total_inst
+
         for kw in total_result_cnt.keys():
             if kw in ["Succeed"]:
                 continue
