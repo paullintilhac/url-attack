@@ -64,7 +64,6 @@ class VIPERAttacker(ClassificationAttacker):
     def attack(self, victim: Classifier, sentence : str, goal: ClassifierGoal):
         for _ in range(self.generations):
             out = []
-            print("sentence: " + str(sentence))
             for c in sentence:
                 if self.method == "dces":
                     if c not in self.sim_dict:
@@ -92,7 +91,6 @@ class VIPERAttacker(ClassificationAttacker):
                         s = c
                     out.append(s)
             ans = "".join(out)
-            print("ans: " + str(ans))
             pred = victim.get_pred([ans])[0]
 
             if goal.check(ans, pred):

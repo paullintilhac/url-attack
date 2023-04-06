@@ -125,7 +125,6 @@ class AttackEval:
             A dict contains the result of each input samples.
 
         """
-        print("dataset: " + str(dataset))
         if num_workers > 0:
             ctx = mp.get_context("spawn")
             if chunk_size is None:
@@ -176,7 +175,6 @@ class AttackEval:
 
         # Begin for
         for i, res in enumerate(result_iterator):
-            print("res: " + str(res))
             total_inst += 1
             success_inst += int(res["success"])
 
