@@ -98,7 +98,8 @@ def main():
     y_train = torch.load('../Adversarial-Attack-on-recurrent-neural-network/y_train_tomita6_sent.pt')
     
     dataset = []
-    for i in range(len(x_test)):
+   # for i in range(len(x_test)):
+    for i in range(1):
         this_dict = {'x': x_test[i],'y': int(y_test[i])}
         dataset.append(this_dict)
     

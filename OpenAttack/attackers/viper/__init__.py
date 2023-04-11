@@ -6,7 +6,7 @@ from ..classification import ClassificationAttacker, Classifier, ClassifierGoal
 from ...text_process.tokenizer import Tokenizer, get_default_tokenizer
 from ...utils import get_language, check_language, language_by_name
 from ...tags import Tag
-from ...attack_assist.substitute.char import DCESSubstitute, ECESSubstitute
+from ...attack_assist.substitute.char import DCESSubstitute, ECESSubstitute, AnycharSubstitute
 
 DEFAULT_CONFIG = {
     "prob": 0.3,
@@ -26,7 +26,7 @@ class VIPERAttacker(ClassificationAttacker):
             prob : float = 0.3,
             topn : int = 1,
             generations : int = 120,
-            method: str = "eces",
+            method: str = "anychar",
         ):
         """
         Text Processing Like Humans Do: Visually Attacking and Shielding NLP Systems. Steffen Eger, Gözde Gül ¸Sahin, Andreas Rücklé, Ji-Ung Lee, Claudia Schulz, Mohsen Mesgar, Krishnkant Swarnkar, Edwin Simpson, Iryna Gurevych. NAACL-HLT 2019.
@@ -52,6 +52,8 @@ class VIPERAttacker(ClassificationAttacker):
             self.substitute = DCESSubstitute()
         elif method == "eces":
             self.substitute = ECESSubstitute()
+        elif method == "anychar":
+            self.substitute = AnycharSubstitute()
         else:
             raise ValueError("Unknown method `%s` expect `%s`" % (method, ["dces", "eces"]))
         

@@ -66,6 +66,8 @@ class DeepWordBugAttacker(ClassificationAttacker):
         indices = np.argsort(losses)
 
         advinputs = tokens[:]
+        print("adv inputs: " + str(advinputs))
+        
         t = 0
         j = 0
         while j < self.power and t < len(tokens):

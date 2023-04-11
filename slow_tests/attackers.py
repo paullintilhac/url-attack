@@ -13,8 +13,10 @@ def get_attackers(dataset, clsf):
     # print("triggers: " + str(triggers))
 
     attackers = [
-        OpenAttack.attackers.VIPERAttacker(),
+         OpenAttack.attackers.VIPERAttacker(),
+         
         #OpenAttack.attackers.DeepWordBugAttacker(),
+
         # OpenAttack.attackers.GANAttacker(),
         # OpenAttack.attackers.GeneticAttacker(),
         # OpenAttack.attackers.HotFlipAttacker(),
