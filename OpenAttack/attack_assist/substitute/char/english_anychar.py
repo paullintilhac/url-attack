@@ -31,10 +31,9 @@ class AnycharSubstitute(CharSubstitute):
         :return: The result is a list of tuples, *(substitute, 1)*.
         :rtype: list of tuple
         """
-        randInt = random.randint(0,len-1)
-        print("randWord: "+str(A[randInt]))
-        if char not in self.h:
+        len1 = len(A)
+        randInt = random.randint(0,len1-1)
+        if char not in A:
             return [(char, 1)]
-
         
-        return [(A[randInt], 1)]
+        return [(A[randInt],1)]

@@ -167,7 +167,7 @@ class AttackEval:
             result_iterator = tqdm(self.ieval(dataset, num_workers, chunk_size), total=total_len)
         else:
             result_iterator = self.ieval(dataset, num_workers, chunk_size)
-
+        successfulExamples = []
         total_result = {}
         total_result_cnt = {}
         total_inst = 0
@@ -183,6 +183,8 @@ class AttackEval:
                 x_orig = res["data"]["x"]
                 if res["success"]:
                     x_adv = res["result"]
+                    successfulExamples.append(x_adv)
+
                     if Tag("get_prob", "victim") in self.victim.TAGS:
                         self.victim.set_context(res["data"], None)
                         try:
@@ -242,6 +244,10 @@ class AttackEval:
                 total_result_cnt[kw] += 1
                 total_result[kw] += float(val)
         # End for
+        f = open('./adv examples.txt', "w")
+        print("successfulExamples: " + str(successfulExamples))
+        f.writelines('\n'.join(successfulExamples))
+        f.close()
 
         summary = {}
         summary["Total Attacked Instances"] = total_inst

@@ -25,7 +25,7 @@ class VIPERAttacker(ClassificationAttacker):
     def __init__(self,
             prob : float = 0.3,
             topn : int = 1,
-            generations : int = 120,
+            generations : int = 10,
             method: str = "anychar",
         ):
         """
