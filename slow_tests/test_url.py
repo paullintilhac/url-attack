@@ -83,12 +83,14 @@ class RNNModel(nn.Module,OpenAttack.Classifier):
         thing = self.get_prob(input_)
         return torch.max(thing[0],1)[1]
 def main():
+    args = sys.argv[1:]
+    path = args[0]
+    print("args: " + str(args))
     import multiprocessing
     if multiprocessing.get_start_method() != "spawn":
         multiprocessing.set_start_method("spawn", force=True)    
-
-    x_test = torch.load('./x_train_url_sent.pt')
-    y_test = torch.load('./y_train_url_sent.pt')
+    x_test = torch.load(path + '/x_train_url_sent.pt')
+    y_test = torch.load(path + '/y_train_url_sent.pt')
     maxL = 0
     for x in (x_test):
         if len(x)>maxL:
@@ -113,7 +115,7 @@ def main():
 
         return model
     
-    model = load_checkpoint('./rnn model url vs adversarial w gpu.pth')
+    model = load_checkpoint(path + "/rnn model url vs adversarial w gpu.pth")
 
     attackers = get_attackers(dataset, model)
     print("attackers: " + str(attackers))
